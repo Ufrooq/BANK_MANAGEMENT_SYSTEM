@@ -197,6 +197,12 @@ public class AccountCreationFrame extends JFrame {
 			}
 		}
 
+		public String convertDataToJson() {
+			String jsonData = "";
+
+			return jsonData;
+		}
+
 	}
 
 }
