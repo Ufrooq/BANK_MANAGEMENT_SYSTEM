@@ -156,6 +156,7 @@ public class AccountCreationFrame extends JFrame {
 					int home = Integer.parseInt(t10.getText());
 					int street = Integer.parseInt(t11.getText());
 					String city = t12.getText();
+					String jsonData = convertDataToJson();
 					runner.inserting_into_db(gender, accNum, city);
 
 					Date d = new Date();
