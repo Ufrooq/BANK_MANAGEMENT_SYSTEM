@@ -7,12 +7,19 @@ import java.net.URL;
 public class Runner {
 	public static void main(String[] args) {
 		HomePage m = new HomePage();
+
+	}
+
+	public void inserting_into_db(String requestType, String data, String apiRoute) {
 		try {
 			// Your Node.js backend URL
-			String url = "http://localhost:8000/api/customer";
+			String url = "http://localhost:8000/api/" + apiRoute;
 
 			// Sample JSON data
-			String jsonInputString = "{\"username\": \"john_doe\", \"email\": \"john@example.com\"}";
+			// String jsonInputString = "{\"username\": \"john_doe\", \"email\":
+			// \"john@example.com\"}"; // String jsonInputString = "{\"username\":
+			// \"john_doe\", \"email\": \"john@example.com\"}";
+			String jsonInputString = data;
 
 			// Create a URL object
 			URL obj = new URL(url);
@@ -21,7 +28,7 @@ public class Runner {
 			HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
 			// Set the request method to POST
-			con.setRequestMethod("POST");
+			con.setRequestMethod(requestType);
 
 			// Set request headers
 			con.setRequestProperty("Content-Type", "application/json");
@@ -46,13 +53,12 @@ public class Runner {
 				while ((inputLine = in.readLine()) != null) {
 					response.append(inputLine);
 				}
-
 				// Print the response
 				System.out.println("Response: " + response.toString());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
+
 }

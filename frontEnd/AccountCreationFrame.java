@@ -10,6 +10,8 @@ public class AccountCreationFrame extends JFrame {
 	MyLabel backgroundImage;
 	ImageIcon image;
 
+	Runner runner = new Runner();
+
 	AccountCreationFrame() {
 		setSize(600, 400);
 		setTitle("Account Creation Frame");
@@ -154,6 +156,7 @@ public class AccountCreationFrame extends JFrame {
 					int home = Integer.parseInt(t10.getText());
 					int street = Integer.parseInt(t11.getText());
 					String city = t12.getText();
+					runner.inserting_into_db(gender, accNum, city);
 
 					Date d = new Date();
 					Account acc = new Account(accNum, pin, balance, d);
@@ -192,6 +195,7 @@ public class AccountCreationFrame extends JFrame {
 				ClientIntermediateFrame c = new ClientIntermediateFrame();
 			}
 		}
+
 	}
 
 }
