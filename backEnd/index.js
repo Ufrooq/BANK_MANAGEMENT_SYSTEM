@@ -10,6 +10,7 @@ app.use(express.json());
 app.use(bodyParser.json());
 
 app.use("/api/customer", require("./Routes/customerRoutes"));
+app.use("/api/admin", require("./Routes/adminRoutes"));
 
 app.listen(port, () => {
   console.log(`http://localhost:${port}`);

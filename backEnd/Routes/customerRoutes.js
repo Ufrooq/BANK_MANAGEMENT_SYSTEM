@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const { customerCreation } = require("../controllers/customer");
+const { accountCreation } = require("../controllers/customer.js");
 
-router.post("/", customerCreation);
+router.post("/accountCreation", accountCreation);
 
 module.exports = router;

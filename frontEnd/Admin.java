@@ -1,15 +1,17 @@
 public class Admin extends Person {
 	private String userName;
 	private int pinCode;
+	private int adminId;
 
 	public Admin() {
 		super();
 	}
 
-	public Admin(String n, int a, String g, String u, int p, int d, int m, int y) {
+	public Admin(String n, int a, String g, String u, int p, int d, int m, int y, int admin_id) {
 		super(n, a, g, d, m, y);
 		userName = u;
 		pinCode = p;
+		adminId = admin_id;
 	}
 
 	public String getUserName() {
@@ -26,6 +28,14 @@ public class Admin extends Person {
 
 	public void setPinCode(int p) {
 		pinCode = p;
+	}
+
+	public void setadminId(int a) {
+		adminId = a;
+	}
+
+	public int getadminId() {
+		return adminId;
 	}
 
 	public String toString() {

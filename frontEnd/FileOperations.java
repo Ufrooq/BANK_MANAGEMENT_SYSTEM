@@ -101,6 +101,35 @@ public class FileOperations {
 			return false;
 	}
 
+	// new function to check admin id from file operations
+	public boolean getAdminId(int id) {
+		boolean flag = false;
+		try {
+			ObjectInputStream in = new ObjectInputStream(new FileInputStream(f1));
+
+			while (true) {
+				Admin a = (Admin) in.readObject();
+				if (a.getadminId() == id) {
+					flag = true;
+					return true;
+				}
+			}
+		} catch (EOFException eof) {
+			if (flag)
+				return true;
+		} catch (ClassNotFoundException c) {
+			System.err.println("Class not found");
+		} catch (FileNotFoundException f) {
+			System.err.println("File not found");
+		} catch (IOException ex) {
+			System.err.println("Some Error");
+		} finally {
+			if (!flag)
+				return false;
+		}
+		return false;
+	}
+
 	public boolean getAdminAccess(String uName, int pin) {
 		boolean flag = false;
 		try {

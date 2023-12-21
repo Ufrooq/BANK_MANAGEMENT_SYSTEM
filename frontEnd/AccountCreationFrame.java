@@ -4,8 +4,8 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class AccountCreationFrame extends JFrame {
-	MyLabel l1, l2, l3, l4, l5, l6, l7, l8, l9, l10, l11, l12, l13, l14;
-	JTextField t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12;
+	MyLabel l1, l2, l3, l4, l5, l6, l7, l8, l9, l10, l11, l12, l13, l14, l17;
+	JTextField t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t17;
 	JButton b1, b2, b3;
 	MyLabel backgroundImage;
 	ImageIcon image;
@@ -104,15 +104,21 @@ public class AccountCreationFrame extends JFrame {
 		t12 = new JTextField();
 		t12.setBounds(400, 195, 70, 20);
 		add(t12);
+		l17 = new MyLabel("Admin Id");
+		l17.setBounds(220, 220, 100, 30);
+		add(l17);
+		t17 = new JTextField();
+		t17.setBounds(300, 220, 100, 30);
+		add(t17);
 
 		b1 = new JButton("Create");
-		b1.setBounds(20, 250, 140, 50);
+		b1.setBounds(20, 260, 140, 50);
 		add(b1);
 		b2 = new JButton("Clear");
-		b2.setBounds(200, 250, 140, 50);
+		b2.setBounds(200, 260, 140, 50);
 		add(b2);
 		b3 = new JButton("Return");
-		b3.setBounds(380, 250, 140, 50);
+		b3.setBounds(380, 260, 140, 50);
 		add(b3);
 		MyActionListener a = new MyActionListener();
 		b1.addActionListener(a);
@@ -156,8 +162,11 @@ public class AccountCreationFrame extends JFrame {
 					int home = Integer.parseInt(t10.getText());
 					int street = Integer.parseInt(t11.getText());
 					String city = t12.getText();
-					String jsonData = convertDataToJson();
-					runner.inserting_into_db(gender, accNum, city);
+					int adminId = Integer.parseInt(t17.getText());
+					String dob = year + " - " + month + " - " + day;
+					String address = home + " - " + street + " - " + city;
+					String jsonData = convertDataToJson(name, age, gender, accNum, pin, balance, dob, address, adminId);
+					runner.inserting_into_db("POST", jsonData, "customer/accountCreation");
 
 					Date d = new Date();
 					Account acc = new Account(accNum, pin, balance, d);
@@ -197,8 +206,26 @@ public class AccountCreationFrame extends JFrame {
 			}
 		}
 
-		public String convertDataToJson() {
-			String jsonData = "";
+		public String convertDataToJson(
+				String name, int age, String gender, String accNum,
+				int pin, Double balance, String dob, String address, int adminId) {
+
+			String jsonInputString = """
+					{
+					"name": "%s",
+					"age": %d,
+					"gender": "%s",
+					"accNum": %s,
+					"pin": %d,
+					"balance": %.2f,
+					"dob": "%s",
+					"address": "%s",
+					"adminId": %d
+					}
+					""";
+
+			String jsonData = String.format(jsonInputString, name, age, gender, accNum, pin, balance, dob, address,
+					adminId);
 
 			return jsonData;
 		}
@@ -206,3 +233,28 @@ public class AccountCreationFrame extends JFrame {
 	}
 
 }
+
+// public String convertDataToJson(
+// String name, int age, String gender, String accNum,
+// int pin, Double balance, String dob, String address, int adminId) {
+
+// String jsonInputString = """
+// {
+// "name": "%s",
+// "age": %d,
+// "gender": "%s",
+// "accNum": %s,
+// "pin": %d,
+// "balance": %.2f,
+// "dob": "%s",
+// "address": "%s",
+// "adminId": %d
+// }
+// """;
+
+// String jsonData = String.format(jsonInputString, name, age, gender, accNum,
+// pin, balance, dob, address,
+// adminId);
+
+// return jsonData;
+// }
