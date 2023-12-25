@@ -39,23 +39,22 @@ const customerCreation = async (req, res) => {
       address,
     });
 
-    // if (insertUser_into_DB) {
-    //   const { _id } = insertUser_into_DB;
-    //   const isAccountAvailable = await AccountModel.findOne({
-    //     customer_id: _id,
-    //   });
-    //   console.log(isAccountAvailable);
-    //   if (isAccountAvailable) {
-    //     res.status(400);
-    //     throw new Error("Account Already Exists !!");
-    //   }
-    //   const insertAccount_into_DB = await AccountModel.create({
-    //     customer_id: _id,
-    //     accNum,
-    //     pin,
-    //     balance,
-    //   });
-    // }
+    if (insertUser_into_DB) {
+      const { _id } = insertUser_into_DB;
+      const isAccountAvailable = await AccountModel.findOne({
+        customer_id: _id,
+      });
+      if (isAccountAvailable) {
+        res.status(400);
+        throw new Error("Account Already Exists !!");
+      }
+      const insertAccount_into_DB = await AccountModel.create({
+        customer_id: _id,
+        accNum,
+        pin,
+        balance,
+      });
+    }
     res.status(200).json({
       message: "Customer data inserted and account created Successfully",
     });
