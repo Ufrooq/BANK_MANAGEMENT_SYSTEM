@@ -11,10 +11,7 @@ const accountSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
-  accType: {
-    type: String,
-    required: true,
-  },
+
   pin: {
     type: Number,
     required: true,

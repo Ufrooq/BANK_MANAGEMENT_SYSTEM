@@ -133,8 +133,8 @@ public class AdminCreationFrame extends JFrame {
 					String dob = year + " - " + month + " - " + day;
 					Admin ad = new Admin(name, age, gender, uName, pin, day, month, year, admin_id);
 					JOptionPane.showMessageDialog(null, ad.toString());
-					String jsonData = convertDataToJson(name, age, gender, pin, dob);
-					runner.inserting_into_db("POST", jsonData, "customer/accountCreation");
+					String jsonData = convertDataToJson(admin_id, name, age, gender, uName, pin, dob);
+					runner.inserting_into_db("POST", jsonData, "admin/adminCreation");
 
 				}
 			}
@@ -153,20 +153,22 @@ public class AdminCreationFrame extends JFrame {
 	}
 
 	public String convertDataToJson(
-			String name, int age, String gender,
+			int admin_id, String name, int age, String gender, String uName,
 			int pin, String dob) {
 
 		String jsonInputString = """
 				{
+				"admin_id" : %d,
 				"name": "%s",
 				"age": %d,
 				"gender": "%s",
+				"uName" : "%s",
 				"pin": %d,
-				"dob": "%s",
+				"dob": "%s"
 				}
 				""";
 
-		String jsonData = String.format(jsonInputString, name, age, gender, pin, dob);
+		String jsonData = String.format(jsonInputString, admin_id, name, age, gender, uName, pin, dob);
 
 		return jsonData;
 	}

@@ -6,7 +6,7 @@ const customerSchema = new mongoose.Schema({
     required: true,
     ref: "Admin",
   },
-  Cnic: {
+  customer_cnic: {
     type: String,
     required: true,
   },

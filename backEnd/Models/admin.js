@@ -1,20 +1,18 @@
 const mongoose = require("mongoose");
 
 const adminSchema = new mongoose.Schema({
-  manager_id: {
-    type: mongoose.Schema.Types.ObjectId,
-    required: true,
-    ref: "Manager",
-  },
-  adminId: {
+  admin_id: {
     type: Number,
     required: true,
+    unique: true,
   },
-  name: {
+
+  uName: {
     type: String,
     required: true,
+    unique: true,
   },
-  Uname: {
+  name: {
     type: String,
     required: true,
   },
