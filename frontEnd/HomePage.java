@@ -5,12 +5,11 @@ import java.awt.Font;
 import java.awt.event.*;
 
 public class HomePage extends JFrame {
-	Button b1, b2, b3, b4;
+	Button b1, b2, b3, b4, b5;
 	ImageIcon image;
 	JLabel backgroundImage, welcome;
 
 	HomePage() {
-
 		setSize(800, 600);
 		setTitle("PUBLIC BANK");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -36,6 +35,8 @@ public class HomePage extends JFrame {
 		b3.setBounds(30, 320, 230, 70);
 		b4 = new Button("Exit");
 		b4.setBounds(30, 430, 230, 60);
+		b5 = new Button("Loan");
+		b5.setBounds(300, 120, 230, 70);
 
 		backgroundImage = new JLabel(image);
 		backgroundImage.setBounds(0, -20, this.getWidth(), this.getHeight());
@@ -43,6 +44,7 @@ public class HomePage extends JFrame {
 		this.add(b2);
 		this.add(b3);
 		this.add(b4);
+		this.add(b5);
 
 		this.add(welcome);
 		this.add(backgroundImage);
@@ -52,6 +54,7 @@ public class HomePage extends JFrame {
 		b2.addActionListener(a);
 		b3.addActionListener(a);
 		b4.addActionListener(a);
+		b5.addActionListener(a);
 
 		setResizable(false);
 		setVisible(true);
@@ -70,6 +73,9 @@ public class HomePage extends JFrame {
 				ClientIntermediateFrame ci = new ClientIntermediateFrame();
 			} else if (ae.getActionCommand().equals("Exit")) {
 				System.exit(1);
+			} else if (ae.getActionCommand().equals("Loan")) {
+				dispose();
+				LoanIntermediateFrame l1 = new LoanIntermediateFrame();
 			}
 		}
 	}

@@ -1,6 +1,7 @@
 const { AccountModel } = require("../Models/account.js");
 const { customerModel } = require("../Models/customer.js");
 const { adminModel } = require("../Models/admin.js");
+const { loanModel } = require("../Models/loan.js");
 
 const customerCreation = async (req, res) => {
   const {
@@ -64,4 +65,30 @@ const customerCreation = async (req, res) => {
   }
 };
 
-module.exports = { customerCreation };
+const availLoan = async (req, res) => {
+  try {
+    const { accNum, loanAmount, loanDate, returnDate, permonthReturn } =
+      req.body;
+    const isAccountAvailable = await AccountModel.findOne({ accNum });
+    if (!isAccountAvailable) {
+      res.status(400);
+      throw new Error("Account does'nt exixts !!");
+    }
+    const { _id } = isAccountAvailable;
+    const availing_loan = await loanModel.create({
+      account_id: _id,
+      loanAmount,
+      loanDate,
+      returnDate,
+      permonthReturn,
+    });
+    res.status(200).json({
+      message: "Loan availed successfully !!",
+    });
+  } catch (error) {
+    console.log("error occured");
+    res.status(400).json({ message: "Error Occured !!" });
+  }
+};
+
+module.exports = { customerCreation, availLoan };

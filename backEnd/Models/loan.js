@@ -6,10 +6,6 @@ const loanSchema = new mongoose.Schema({
     required: true,
     ref: "Account",
   },
-  accNum: {
-    type: Number,
-    required: true,
-  },
   loanAmount: {
     type: Number,
     required: true,
