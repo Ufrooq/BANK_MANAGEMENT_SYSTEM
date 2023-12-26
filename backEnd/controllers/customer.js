@@ -66,22 +66,22 @@ const customerCreation = async (req, res) => {
 };
 
 const availLoan = async (req, res) => {
+  const { accNum, loanAmount, loanDate, returnDate, permonthReturn } = req.body;
   try {
-    const { accNum, loanAmount, loanDate, returnDate, permonthReturn } =
-      req.body;
     const isAccountAvailable = await AccountModel.findOne({ accNum });
     if (!isAccountAvailable) {
       res.status(400);
-      throw new Error("Account does'nt exixts !!");
+      res.status(400).json({ message: "Account doesn't exist !!" });
+      return;
     }
-    const { _id } = isAccountAvailable;
     const availing_loan = await loanModel.create({
-      account_id: _id,
+      account_id: isAccountAvailable._id,
       loanAmount,
       loanDate,
       returnDate,
       permonthReturn,
     });
+    console.log(availing_loan);
     res.status(200).json({
       message: "Loan availed successfully !!",
     });
